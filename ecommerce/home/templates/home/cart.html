@@ -1,0 +1,184 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <!-- Include your CSS styling here -->
+    <style>
+        /* Include the styles from product_list.html or add additional styling */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .heading-section {
+            background-color: #008080; /* Background color for the heading portion */
+            color: #fff; /* Text color for the heading portion */
+            padding: 10px 0; /* Adjust padding for better visual appearance */
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-container {
+            text-align: center; /* Center the logo within the container */
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            display: inline-block; /* Display the logo inline with the heading */
+            vertical-align: middle; /* Align the logo vertically with the heading */
+        }
+
+        .logo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid #adecec;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom: none;
+        }
+
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 16px;
+            border: 2px solid #adecec;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-top: none;
+        }
+
+        .logo div {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 24px;
+            border: 2px solid #adecec;
+            border-bottom: none;
+            background-color: #adecec;
+        }
+
+        /* Change the color of the "Z" text to match the logo color */
+        .logo-text {
+            color: #adecec;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .product-container {
+            flex: 0 0 250px;
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #444;
+        }
+
+        h3 {
+            color: #ffffff;
+            background-color: #008080;
+            padding: 2px 5px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .remove-from-cart-btn {
+            display: inline-block;
+            background-color: #dc3545;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .remove-from-cart-btn:hover {
+            background-color: #c82333;
+        }
+
+        .center-text {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .link-button {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .link-button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="heading-section">
+        <h1><span class="logo"><div></div></span> Shop<span class="logo-text">Z</span> - Shopping Cart</h1>
+    </div>  
+
+    <div class="products">
+        {% for item in cart_items %}
+            <div class="product-container">
+                <h2>{{ item.name }}</h2>
+                <h3>₹ {{ item.quantity }} x {{ item.price }} = ₹ {{ item.total_price }}</h3>
+                <img src="{{ item.itemsimg.url }}" alt="{{ item.name }}">
+                <a href="{% url 'remove_from_cart' item.id %}" class="remove-from-cart-btn">
+                    <div>Remove from Cart</div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="center-text">
+        <a href="{% url 'product_list' %}" class="link-button">Continue Shopping</a>
+        <!-- Add checkout button or additional cart options here -->
+    </div>
+
+</body>
+</html>
